@@ -1,0 +1,77 @@
+[
+    {
+        "category": "Barbadas",
+        "items": [
+            {
+                "featured": false,
+                "id": "",
+                "title": "",
+                "text": "",
+                "material": "",
+                "images": []
+            }
+        ]
+    },
+    {
+        "category": "Espuelas",
+        "items": [
+            {
+                "featured": true,
+                "id": "ENH0001",
+                "title": "Espuelas nazarenas forjadas",
+                "text": "Descripción del producto.",
+                "material": "Hierro",
+                "images": [
+                    {
+                        "type": "video",
+                        "imgUrl": "img-01.mp4"
+                    },
+                    {
+                        "type": "image",
+                        "imgAlt": "Website mobile version",
+                        "imgUrl": "img-03.png"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "category": "Estribos",
+        "items": [
+            {
+                "featured": false,
+                "id": "",
+                "title": "",
+                "text": "",
+                "material": "",
+                "images": []
+            }
+        ]
+    },
+    {
+        "category": "Frenos",
+        "items": [
+            {
+                "featured": false,
+                "id": "",
+                "title": "",
+                "text": "",
+                "material": "",
+                "images": []
+            }
+        ]
+    },
+    {
+        "category": "Otros",
+        "items": [
+            {
+                "featured": false,
+                "id": "",
+                "title": "",
+                "text": "",
+                "material": "",
+                "images": []
+            }
+        ]
+    }
+]

@@ -1,7 +1,7 @@
 import React from "react";
 import Logo from "../Logo/Logo";
 import NavBarBurger from "./NavBarBurger";
-
+import NavBarOpen from "./NavBarOpen";
 
 const NavBar = () => {
     return (
@@ -11,7 +11,7 @@ const NavBar = () => {
         px-20 xs:px-5 md:px-20">
             <NavBarBurger/>
             <Logo/>
-            <div></div>
+            <NavBarOpen/>
         </div>
     );
 };
