@@ -1,12 +1,13 @@
 import React from 'react';
 import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
+import { v4 as uuidv4 } from "uuid";
 
 export default function ItemFilterDesktop({ filters }) {
     return (
         <form className="hidden lg:block">
             {filters.map((section) => (
-                <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6" defaultOpen={true}>
+                <Disclosure as="div" key={uuidv4()} className="border-b border-gray-200 py-6" defaultOpen={true}>
                     {({ open }) => (
                         <>
                             <h3 className="-my-3 flow-root">
@@ -24,7 +25,7 @@ export default function ItemFilterDesktop({ filters }) {
                             <DisclosurePanel className="pt-6">
                                 <div className="space-y-4">
                                     {section.options.map((option, optionIdx) => (
-                                        <div key={option.value} className="flex items-center">
+                                        <div key={uuidv4()} className="flex items-center">
                                             <input
                                                 id={`filter-${section.id}-${optionIdx}`}
                                                 name={`${section.id}[]`}

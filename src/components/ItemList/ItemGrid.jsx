@@ -1,16 +1,12 @@
 import React from "react";
-import productsData from '../../data/products.json';
 import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
-const ItemGrid = () => {
-    const allProducts = productsData.flatMap(category =>
-        category.items.map(item => ({ ...item, category: category.category }))
-    );
-
+const ItemGrid = ({ productos }) => {
     return (
         <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-4">
-            {allProducts.map((product) => (
-                <Link to={`/producto/${product.category}/${product.id}`} key={product.id} className="group relative">
+            {productos.map((product) => (
+                <Link to={`/producto/${product.category}/${product.id}`} key={uuidv4()} className="group relative">
                     <div className="aspect-w-1 aspect-h-1 overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                         <img
                             src={`${process.env.PUBLIC_URL}/images/products/${product.category}/${product.id}.jpg`}

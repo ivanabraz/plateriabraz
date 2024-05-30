@@ -1,6 +1,7 @@
 import React from "react";
 import productsData from '../../data/products.json';
 import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 const FeaturedProducts = () => {
     const featuredProducts = productsData.flatMap(category =>
@@ -23,7 +24,7 @@ const FeaturedProducts = () => {
             <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
                 <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                     {featuredProducts.map((product) => (
-                        <Link to={`/producto/${product.category}/${product.id}`} key={product.id} className="group relative">
+                        <Link to={`/producto/${product.category}/${product.id}`} key={uuidv4()} className="group relative">
                             <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                                 <img
                                 src={`${process.env.PUBLIC_URL}/images/products/${product.category}/${product.id}.jpg`}

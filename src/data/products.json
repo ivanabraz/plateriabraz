@@ -5,7 +5,7 @@
             {
                 "featured": false,
                 "id": "",
-                "name": "",
+                "name": "Barbada c",
                 "price": 250000,
                 "text": "",
                 "material": "",
@@ -25,7 +25,7 @@
             {
                 "featured": true,
                 "id": "enh01",
-                "name": "Espuelas nazarenas forjadas",
+                "name": "Espuelas nazarenas A",
                 "price": 250000,
                 "text": "Descripción del producto.",
                 "material": "Inoxidable",
@@ -40,7 +40,7 @@
             {
                 "featured": true,
                 "id": "enh02",
-                "name": "Espuelas nazarenas forjadas",
+                "name": "Espuelas nazarenas B",
                 "price": 250000,
                 "text": "Descripción del producto.",
                 "material": "Hierro",
@@ -55,8 +55,8 @@
             {
                 "featured": true,
                 "id": "enh03",
-                "name": "Espuelas nazarenas forjadas",
-                "price": 250000,
+                "name": "Espuelas nazarenas C",
+                "price": 300000,
                 "text": "Descripción del producto.",
                 "material": "Hierro",
                 "images": [
@@ -150,7 +150,7 @@
             {
                 "featured": false,
                 "id": "",
-                "name": "",
+                "name": "Estribo 02",
                 "price": 250000,
                 "text": "",
                 "material": "",
@@ -170,7 +170,7 @@
             {
                 "featured": false,
                 "id": "",
-                "name": "",
+                "name": "Freno 02",
                 "price": 250000,
                 "text": "",
                 "material": "",
@@ -190,7 +190,7 @@
             {
                 "featured": false,
                 "id": "",
-                "name": "",
+                "name": "Otros 01",
                 "price": 250000,
                 "text": "",
                 "material": "",

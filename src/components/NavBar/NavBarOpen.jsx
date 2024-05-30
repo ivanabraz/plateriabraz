@@ -3,6 +3,7 @@ import { Dialog, DialogPanel, Tab, TabGroup, TabList, TabPanel, TabPanels, Trans
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faFacebookSquare} from "@fortawesome/free-brands-svg-icons";
+import { v4 as uuidv4 } from "uuid";
 
 // CONTEXT
 import { NavBarContext } from '../../context/NavBarContext';
@@ -111,7 +112,7 @@ const NavBarOpen = () => {
                                     <TabPanels as={Fragment}>
                                         <TabPanel className="grid grid-cols-2 gap-x-4 px-4 pb-8 pt-5">
                                             {navigation.featured.map((featured) => (
-                                                <Link to={featured.href} key={featured.name} className="text-sm">
+                                                <Link to={featured.href} key={uuidv4()} className="text-sm">
                                                     <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
                                                         <img src={featured.imageSrc} alt={featured.imageAlt} className="object-cover object-center" />
                                                     </div>
@@ -130,7 +131,7 @@ const NavBarOpen = () => {
                                     <p className="font-medium text-gray-900">Categorías</p>
                                     <ul className="mt-6 space-y-6">
                                         {navigation.categories.map((subCategory) => (
-                                            <li key={subCategory.name}>
+                                            <li key={uuidv4()}>
                                                 <Link to="#" className="-m-2 block p-2 text-gray-500">
                                                     {subCategory.name}
                                                 </Link>
@@ -142,7 +143,7 @@ const NavBarOpen = () => {
                                 {/* Otras páginas */}
                                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                                     {navigation.pages.map((page) => (
-                                        <Link key={page.name} to={page.href} className="-m-2 p-2 font-medium text-gray-900">
+                                        <Link key={uuidv4()} to={page.href} className="-m-2 p-2 font-medium text-gray-900">
                                             {page.name}
                                         </Link>
                                     ))}
@@ -151,7 +152,7 @@ const NavBarOpen = () => {
                                 {/* Redes sociales */}
                                 <div className="grid grid-cols-6 gap-x-2 border-t border-gray-200 px-4 py-6 text-gray-900">
                                     {navigation.social.map((page) => (
-                                        <a key={page.name} href={page.href} target="_blank" rel="noreferrer" className="-m-2 p-2">
+                                        <a key={uuidv4()} href={page.href} target="_blank" rel="noreferrer" className="-m-2 p-2">
                                             <FontAwesomeIcon className="fa-lg" icon={page.icon} />
                                         </a>
                                     ))}

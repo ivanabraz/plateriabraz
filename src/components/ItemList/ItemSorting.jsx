@@ -1,11 +1,11 @@
 import React from 'react';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { FunnelIcon, Squares2X2Icon, ChevronDownIcon } from '@heroicons/react/20/solid';
-import { Transition } from '@headlessui/react'; 
+import { Transition } from '@headlessui/react';
 import classNames from 'classnames';
+import { v4 as uuidv4 } from "uuid";
 
-export default function ItemSorting({ filters, sortOptions, setMobileFiltersOpen }) { // Add sortOptions and setMobileFiltersOpen as props
-
+export default function ItemSorting({ sortOptions, selectedSortOption, setSelectedSortOption, setMobileFiltersOpen }) {
     return (
         <>
             <div className="flex items-center">
@@ -27,19 +27,21 @@ export default function ItemSorting({ filters, sortOptions, setMobileFiltersOpen
                     >
                         <MenuItems className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <div className="py-1">
-                                {sortOptions.map((option) => (
-                                    <MenuItem key={option.name}>
-                                        {({ focus }) => (
-                                            <a
-                                                href={option.href}
+                                {sortOptions && sortOptions.map((option) => (
+                                    <MenuItem key={uuidv4()}>
+                                        {({ active }) => (
+                                            <button
+                                                onClick={() => {
+                                                    setSelectedSortOption(option.name);
+                                                }}
                                                 className={classNames(
-                                                    option.current ? 'font-medium text-gray-900' : 'text-gray-500',
-                                                    focus ? 'bg-gray-100' : '',
-                                                    'block px-4 py-2 text-sm'
+                                                    option.name === selectedSortOption ? 'font-medium text-gray-900' : 'text-gray-500',
+                                                    active ? 'bg-gray-100' : '',
+                                                    'block px-4 py-2 text-sm w-full text-left'
                                                 )}
                                             >
                                                 {option.name}
-                                            </a>
+                                            </button>
                                         )}
                                     </MenuItem>
                                 ))}

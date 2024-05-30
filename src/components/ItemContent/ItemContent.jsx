@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Radio, RadioGroup } from '@headlessui/react';
+import { v4 as uuidv4 } from "uuid";
 
 const product = {
 name: 'Basic Tee 6-Pack',
@@ -67,7 +68,7 @@ return (
     <nav aria-label="Breadcrumb">
         <ol className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
         {product.breadcrumbs.map((breadcrumb) => (
-            <li key={breadcrumb.id}>
+            <li key={uuidv4()}>
             <div className="flex items-center">
                 <a href={breadcrumb.href} className="mr-2 text-sm font-medium text-gray-900">
                 {breadcrumb.name}
@@ -104,7 +105,7 @@ return (
         </div>
         <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
         {product.images.slice(1, 3).map((image, index) => (
-            <div key={index} className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+            <div key={uuidv4()} className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
             <img src={image.src} alt={image.alt} className="h-full w-full object-cover object-center" />
             </div>
         ))}
