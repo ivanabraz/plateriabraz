@@ -3,7 +3,19 @@ import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import { v4 as uuidv4 } from "uuid";
 
-export default function ItemFilterDesktop({ filters }) {
+export default function ItemFilterDesktop({ filters, selectedFilters, setSelectedFilters }) {
+    const handleCheckboxChange = (sectionId, optionValue) => {
+        setSelectedFilters(prevFilters => {
+            const newFilters = { ...prevFilters };
+            if (newFilters[sectionId].includes(optionValue)) {
+                newFilters[sectionId] = newFilters[sectionId].filter(value => value !== optionValue);
+            } else {
+                newFilters[sectionId].push(optionValue);
+            }
+            return newFilters;
+        });
+    };
+
     return (
         <form className="hidden lg:block">
             {filters.map((section) => (
@@ -29,9 +41,10 @@ export default function ItemFilterDesktop({ filters }) {
                                             <input
                                                 id={`filter-${section.id}-${optionIdx}`}
                                                 name={`${section.id}[]`}
-                                                defaultValue={option.value}
+                                                value={option.value}
                                                 type="checkbox"
-                                                defaultChecked={option.checked}
+                                                checked={selectedFilters[section.id].includes(option.value)}
+                                                onChange={() => handleCheckboxChange(section.id, option.value)}
                                                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                             />
                                             <label

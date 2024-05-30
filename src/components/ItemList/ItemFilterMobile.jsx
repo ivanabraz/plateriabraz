@@ -4,7 +4,19 @@ import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
-export default function ItemFilterMobile({ filters, mobileFiltersOpen, setMobileFiltersOpen }) {
+export default function ItemFilterMobile({ filters, mobileFiltersOpen, setMobileFiltersOpen, selectedFilters, setSelectedFilters }) {
+    const handleCheckboxChange = (sectionId, optionValue) => {
+        setSelectedFilters(prevFilters => {
+            const newFilters = { ...prevFilters };
+            if (newFilters[sectionId].includes(optionValue)) {
+                newFilters[sectionId] = newFilters[sectionId].filter(value => value !== optionValue);
+            } else {
+                newFilters[sectionId].push(optionValue);
+            }
+            return newFilters;
+        });
+    };
+
     return (
         <Transition show={mobileFiltersOpen}>
             <Dialog className="relative z-40 lg:hidden" onClose={setMobileFiltersOpen}>
@@ -66,9 +78,10 @@ export default function ItemFilterMobile({ filters, mobileFiltersOpen, setMobile
                                                                 <input
                                                                     id={`filter-mobile-${section.id}-${optionIdx}`}
                                                                     name={`${section.id}[]`}
-                                                                    defaultValue={option.value}
+                                                                    value={option.value}
                                                                     type="checkbox"
-                                                                    defaultChecked={option.checked}
+                                                                    checked={selectedFilters[section.id].includes(option.value)}
+                                                                    onChange={() => handleCheckboxChange(section.id, option.value)}
                                                                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                                                 />
                                                                 <label

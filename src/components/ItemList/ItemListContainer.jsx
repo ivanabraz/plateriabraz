@@ -47,35 +47,47 @@ const filters = [
 
 export default function ItemListContainer() {
     const [selectedSortOption, setSelectedSortOption] = useState('Alfabético A-Z');
+    const [selectedFilters, setSelectedFilters] = useState({ category: [], material: [] });
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
     const [filteredAndSortedProducts, setFilteredAndSortedProducts] = useState([]);
 
     useEffect(() => {
-        const sortProducts = (products, sortOption) => {
-            const allProducts = products.flatMap(category => 
+        const filterProducts = (products, filters) => {
+            const allProducts = products.flatMap(category =>
                 category.items.map(item => ({ ...item, category: category.category }))
             );
+
+            const filteredProducts = allProducts.filter(item => {
+                const categoryMatch = filters.category.length === 0 || filters.category.includes(item.category);
+                const materialMatch = filters.material.length === 0 || filters.material.includes(item.material);
+                return categoryMatch && materialMatch;
+            });
+
+            return filteredProducts;
+        };
+
+        const sortProducts = (products, sortOption) => {
             switch (sortOption) {
                 case 'Alfabético A-Z':
-                    return [...allProducts].sort((a, b) => a.name.localeCompare(b.name));
+                    return [...products].sort((a, b) => a.name.localeCompare(b.name));
                 case 'Alfabético Z-A':
-                    return [...allProducts].sort((a, b) => b.name.localeCompare(a.name));
+                    return [...products].sort((a, b) => b.name.localeCompare(a.name));
                 case 'Precio: Bajo a alto':
-                    return [...allProducts].sort((a, b) => a.price - b.price);
+                    return [...products].sort((a, b) => a.price - b.price);
                 case 'Precio: Alto a bajo':
-                    return [...allProducts].sort((a, b) => b.price - a.price);
+                    return [...products].sort((a, b) => b.price - a.price);
                 default:
-                    return allProducts;
+                    return products;
             }
         };
 
-        setFilteredAndSortedProducts(sortProducts(productos, selectedSortOption));
-    }, [selectedSortOption]);
+        const filteredProducts = filterProducts(productos, selectedFilters);
+        setFilteredAndSortedProducts(sortProducts(filteredProducts, selectedSortOption));
+    }, [selectedSortOption, selectedFilters]);
 
     return (
         <>
-            <ItemFilterMobile filters={filters} setMobileFiltersOpen={setMobileFiltersOpen} mobileFiltersOpen={mobileFiltersOpen} />
-
+            <ItemFilterMobile filters={filters} setMobileFiltersOpen={setMobileFiltersOpen} mobileFiltersOpen={mobileFiltersOpen} selectedFilters={selectedFilters} setSelectedFilters={setSelectedFilters} />
             <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
                     <h1 className="text-4xl font-serif text-gray-900">
@@ -86,7 +98,7 @@ export default function ItemListContainer() {
                 <section aria-labelledby="products-heading" className="pb-24 pt-6">
                     <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                         {/* Filters desktop */}
-                        <ItemFilterDesktop filters={filters} />
+                        <ItemFilterDesktop filters={filters} selectedFilters={selectedFilters} setSelectedFilters={setSelectedFilters} />
                         {/* Product grid */}
                         <div className="lg:col-span-3">
                             <ItemGrid productos={filteredAndSortedProducts} />
