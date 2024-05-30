@@ -8,10 +8,6 @@ import { faInstagram, faFacebookSquare} from "@fortawesome/free-brands-svg-icons
 import { NavBarContext } from '../../context/NavBarContext';
 import { Link } from "react-router-dom";
 
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
-
 const navigation = {
     featured: [
         {

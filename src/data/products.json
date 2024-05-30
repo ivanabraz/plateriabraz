@@ -1,76 +1,206 @@
 [
     {
-        "category": "Barbadas",
+        "category": "barbadas",
         "items": [
             {
                 "featured": false,
                 "id": "",
-                "title": "",
+                "name": "",
+                "price": 250000,
                 "text": "",
                 "material": "",
-                "images": []
-            }
-        ]
-    },
-    {
-        "category": "Espuelas",
-        "items": [
-            {
-                "featured": true,
-                "id": "ENH0001",
-                "title": "Espuelas nazarenas forjadas",
-                "text": "Descripción del producto.",
-                "material": "Hierro",
                 "images": [
-                    {
-                        "type": "video",
-                        "imgUrl": "img-01.mp4"
-                    },
                     {
                         "type": "image",
                         "imgAlt": "Website mobile version",
-                        "imgUrl": "img-03.png"
+                        "imgUrl": "https://durotan-fashion.myshopify.com/cdn/shop/files/banner-02_3000x.jpg?v=1654690330"
                     }
                 ]
             }
         ]
     },
     {
-        "category": "Estribos",
+        "category": "espuelas",
         "items": [
             {
-                "featured": false,
-                "id": "",
-                "title": "",
-                "text": "",
-                "material": "",
-                "images": []
+                "featured": true,
+                "id": "enh01",
+                "name": "Espuelas nazarenas forjadas",
+                "price": 250000,
+                "text": "Descripción del producto.",
+                "material": "Inoxidable",
+                "images": [
+                    {
+                        "type": "image",
+                        "imgAlt": "Website mobile version",
+                        "imgUrl": "https://durotan-fashion.myshopify.com/cdn/shop/files/banner-02_3000x.jpg?v=1654690330"
+                    }
+                ]
+            },
+            {
+                "featured": true,
+                "id": "enh02",
+                "name": "Espuelas nazarenas forjadas",
+                "price": 250000,
+                "text": "Descripción del producto.",
+                "material": "Hierro",
+                "images": [
+                    {
+                        "type": "image",
+                        "imgAlt": "Website mobile version",
+                        "imgUrl": "https://durotan-fashion.myshopify.com/cdn/shop/files/banner-02_3000x.jpg?v=1654690330"
+                    }
+                ]
+            },
+            {
+                "featured": true,
+                "id": "enh03",
+                "name": "Espuelas nazarenas forjadas",
+                "price": 250000,
+                "text": "Descripción del producto.",
+                "material": "Hierro",
+                "images": [
+                    {
+                        "type": "image",
+                        "imgAlt": "Website mobile version",
+                        "imgUrl": "https://durotan-fashion.myshopify.com/cdn/shop/files/banner-02_3000x.jpg?v=1654690330"
+                    }
+                ]
+            },
+            {
+                "featured": true,
+                "id": "enh04",
+                "name": "Espuelas nazarenas forjadas",
+                "price": 250000,
+                "text": "Descripción del producto.",
+                "material": "Hierro",
+                "images": [
+                    {
+                        "type": "image",
+                        "imgAlt": "Website mobile version",
+                        "imgUrl": "https://durotan-fashion.myshopify.com/cdn/shop/files/banner-02_3000x.jpg?v=1654690330"
+                    }
+                ]
+            },
+            {
+                "featured": true,
+                "id": "enh05",
+                "name": "Espuelas nazarenas forjadas",
+                "price": 250000,
+                "text": "Descripción del producto.",
+                "material": "Hierro",
+                "images": [
+                    {
+                        "type": "image",
+                        "imgAlt": "Website mobile version",
+                        "imgUrl": "https://durotan-fashion.myshopify.com/cdn/shop/files/banner-02_3000x.jpg?v=1654690330"
+                    }
+                ]
+            },
+            {
+                "featured": true,
+                "id": "enh06",
+                "name": "Espuelas nazarenas forjadas",
+                "price": 250000,
+                "text": "Descripción del producto.",
+                "material": "Hierro",
+                "images": [
+                    {
+                        "type": "image",
+                        "imgAlt": "Website mobile version",
+                        "imgUrl": "https://durotan-fashion.myshopify.com/cdn/shop/files/banner-02_3000x.jpg?v=1654690330"
+                    }
+                ]
+            },
+            {
+                "featured": true,
+                "id": "enh07",
+                "name": "Espuelas nazarenas forjadas",
+                "price": 250000,
+                "text": "Descripción del producto.",
+                "material": "Hierro",
+                "images": [
+                    {
+                        "type": "image",
+                        "imgAlt": "Website mobile version",
+                        "imgUrl": "https://durotan-fashion.myshopify.com/cdn/shop/files/banner-02_3000x.jpg?v=1654690330"
+                    }
+                ]
+            },
+            {
+                "featured": true,
+                "id": "enh08",
+                "name": "Espuelas nazarenas forjadas",
+                "price": 250000,
+                "text": "Descripción del producto.",
+                "material": "Hierro",
+                "images": [
+                    {
+                        "type": "image",
+                        "imgAlt": "Website mobile version",
+                        "imgUrl": "https://durotan-fashion.myshopify.com/cdn/shop/files/banner-02_3000x.jpg?v=1654690330"
+                    }
+                ]
             }
         ]
     },
     {
-        "category": "Frenos",
+        "category": "estribos",
         "items": [
             {
                 "featured": false,
                 "id": "",
-                "title": "",
+                "name": "",
+                "price": 250000,
                 "text": "",
                 "material": "",
-                "images": []
+                "images": [
+                    {
+                        "type": "image",
+                        "imgAlt": "Website mobile version",
+                        "imgUrl": "https://durotan-fashion.myshopify.com/cdn/shop/files/banner-02_3000x.jpg?v=1654690330"
+                    }
+                ]
             }
         ]
     },
     {
-        "category": "Otros",
+        "category": "frenos",
         "items": [
             {
                 "featured": false,
                 "id": "",
-                "title": "",
+                "name": "",
+                "price": 250000,
                 "text": "",
                 "material": "",
-                "images": []
+                "images": [
+                    {
+                        "type": "image",
+                        "imgAlt": "Website mobile version",
+                        "imgUrl": "https://durotan-fashion.myshopify.com/cdn/shop/files/banner-02_3000x.jpg?v=1654690330"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "category": "otros",
+        "items": [
+            {
+                "featured": false,
+                "id": "",
+                "name": "",
+                "price": 250000,
+                "text": "",
+                "material": "",
+                "images": [
+                    {
+                        "type": "image",
+                        "imgAlt": "Website mobile version",
+                        "imgUrl": "https://durotan-fashion.myshopify.com/cdn/shop/files/banner-02_3000x.jpg?v=1654690330"
+                    }
+                ]
             }
         ]
     }
