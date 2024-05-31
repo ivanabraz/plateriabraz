@@ -3,6 +3,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react
 import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { v4 as uuidv4 } from "uuid";
 
 export default function ItemFilterMobile({ filters, mobileFiltersOpen, setMobileFiltersOpen, selectedFilters, setSelectedFilters }) {
     const handleCheckboxChange = (sectionId, optionValue) => {
@@ -56,7 +57,7 @@ export default function ItemFilterMobile({ filters, mobileFiltersOpen, setMobile
                             {/* Filters */}
                             <form className="mt-4 border-t border-gray-200">
                                 {filters.map((section) => (
-                                    <Disclosure as="div" key={section.id} className="border-t border-gray-200 px-4 py-6">
+                                    <Disclosure as="div" key={uuidv4()} className="border-t border-gray-200 px-4 py-6">
                                         {({ open }) => (
                                             <>
                                                 <h3 className="-mx-2 -my-3 flow-root">
@@ -74,7 +75,7 @@ export default function ItemFilterMobile({ filters, mobileFiltersOpen, setMobile
                                                 <DisclosurePanel className="pt-6">
                                                     <div className="space-y-6">
                                                         {section.options.map((option, optionIdx) => (
-                                                            <div key={option.value} className="flex items-center">
+                                                            <div key={uuidv4()} className="flex items-center">
                                                                 <input
                                                                     id={`filter-mobile-${section.id}-${optionIdx}`}
                                                                     name={`${section.id}[]`}

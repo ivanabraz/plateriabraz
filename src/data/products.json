@@ -4,11 +4,11 @@
         "items": [
             {
                 "featured": false,
-                "id": "",
+                "id": "bi001",
                 "name": "Barbada c",
                 "price": 250000,
                 "text": "",
-                "material": "",
+                "material": "Inoxidable",
                 "images": [
                     {
                         "type": "image",
@@ -28,7 +28,7 @@
                 "name": "Espuelas nazarenas A",
                 "price": 250000,
                 "text": "Descripción del producto.",
-                "material": "Inoxidable",
+                "material": "Hierro",
                 "images": [
                     {
                         "type": "image",
@@ -45,6 +45,21 @@
                 "text": "Descripción del producto.",
                 "material": "Hierro",
                 "images": [
+                    {
+                        "type": "image",
+                        "imgAlt": "Website mobile version",
+                        "imgUrl": "https://durotan-fashion.myshopify.com/cdn/shop/files/banner-02_3000x.jpg?v=1654690330"
+                    },
+                    {
+                        "type": "image",
+                        "imgAlt": "Website mobile version",
+                        "imgUrl": "https://durotan-fashion.myshopify.com/cdn/shop/files/banner-02_3000x.jpg?v=1654690330"
+                    },
+                    {
+                        "type": "image",
+                        "imgAlt": "Website mobile version",
+                        "imgUrl": "https://durotan-fashion.myshopify.com/cdn/shop/files/banner-02_3000x.jpg?v=1654690330"
+                    },
                     {
                         "type": "image",
                         "imgAlt": "Website mobile version",
@@ -153,7 +168,7 @@
                 "name": "Estribo 02",
                 "price": 250000,
                 "text": "",
-                "material": "",
+                "material": "Hierro",
                 "images": [
                     {
                         "type": "image",
@@ -173,7 +188,7 @@
                 "name": "Freno 02",
                 "price": 250000,
                 "text": "",
-                "material": "",
+                "material": "Hierro",
                 "images": [
                     {
                         "type": "image",
@@ -193,7 +208,7 @@
                 "name": "Otros 01",
                 "price": 250000,
                 "text": "",
-                "material": "",
+                "material": "Hierro",
                 "images": [
                     {
                         "type": "image",

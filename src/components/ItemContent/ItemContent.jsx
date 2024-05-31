@@ -1,185 +1,158 @@
-import { useState } from 'react';
-import { Radio, RadioGroup } from '@headlessui/react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import productos from '../../data/products.json';
 import { v4 as uuidv4 } from "uuid";
 
-const product = {
-name: 'Basic Tee 6-Pack',
-price: '$192',
-href: '#',
-breadcrumbs: [
-    { id: 1, name: 'Men', href: '#' },
-    { id: 2, name: 'Clothing', href: '#' },
-],
-images: [
-    {
-    src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg',
-    alt: 'Two each of gray, white, and black shirts laying flat.',
-    },
-    {
-    src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg',
-    alt: 'Model wearing plain black basic tee.',
-    },
-    {
-    src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg',
-    alt: 'Model wearing plain gray basic tee.',
-    },
-    {
-    src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg',
-    alt: 'Model wearing plain white basic tee.',
-    },
-],
-colors: [
-    { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
-    { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
-    { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
-],
-sizes: [
-    { name: 'XXS', inStock: false },
-    { name: 'XS', inStock: true },
-    { name: 'S', inStock: true },
-    { name: 'M', inStock: true },
-    { name: 'L', inStock: true },
-    { name: 'XL', inStock: true },
-    { name: '2XL', inStock: true },
-    { name: '3XL', inStock: true },
-],
-description:
-    'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
-highlights: [
-    'Hand cut and sewn locally',
-    'Dyed with our proprietary colors',
-    
-    'Pre-washed & pre-shrunk',
-    'Ultra-soft 100% cotton',
-],
-details:
-    'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
-};
-
-function classNames(...classes) {
-return classes.filter(Boolean).join(' ');
-}
 
 export default function ItemContent() {
-const [selectedColor, setSelectedColor] = useState(product.colors[0]);
+    const { category, id } = useParams();
+    const [product, setProduct] = useState(null);
+    const [selectedMaterial, setSelectedMaterial] = useState(null);
 
-return (
-    <div className="mt-10 pt-6">
-    <nav aria-label="Breadcrumb">
-        <ol className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-        {product.breadcrumbs.map((breadcrumb) => (
-            <li key={uuidv4()}>
-            <div className="flex items-center">
-                <a href={breadcrumb.href} className="mr-2 text-sm font-medium text-gray-900">
-                {breadcrumb.name}
-                </a>
-                <svg
-                width={16}
-                height={20}
-                viewBox="0 0 16 20"
-                fill="currentColor"
-                aria-hidden="true"
-                className="h-5 w-4 text-gray-300"
-                >
-                <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-                </svg>
-            </div>
-            </li>
-        ))}
-        <li className="text-sm">
-            <a href={product.href} aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
-            {product.name}
-            </a>
-        </li>
-        </ol>
-    </nav>
+    useEffect(() => {
+        const categoryData = productos.find(cat => cat.category === category);
+        if (categoryData) {
+            const productData = categoryData.items.find(item => item.id === id);
+            if (productData) {
+                setProduct(productData);
+                setSelectedMaterial(Array.isArray(productData.material) ? productData.material[0] : null);
+            }
+        }
+    }, [category, id]);
 
-    {/* Image gallery */}
-    <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-        <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-        <img
-            src={product.images[0].src}
-            alt={product.images[0].alt}
-            className="h-full w-full object-cover object-center"
-        />
-        </div>
-        <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-        {product.images.slice(1, 3).map((image, index) => (
-            <div key={uuidv4()} className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-            <img src={image.src} alt={image.alt} className="h-full w-full object-cover object-center" />
-            </div>
-        ))}
-        </div>
-        <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-        <img
-            src={product.images[3].src}
-            alt={product.images[3].alt}
-            className="h-full w-full object-cover object-center"
-        />
-        </div>
-    </div>
+    if (!product) {
+        return <div>Producto no encontrado</div>;
+    }
 
-    {/* Product info */}
-    <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
-        <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{product.name}</h1>
-        </div>
+    const materialColors = {
+        "Hierro": "#d4d4d8",
+        "Inoxidable": "#d1d5db"
+    };
 
-        {/* Options */}
-        <div className="mt-4 lg:row-span-3 lg:mt-0">
-        <h2 className="sr-only">Product information</h2>
-        <p className="text-3xl tracking-tight text-gray-900">{product.price}</p>
+    return (
+        <div className="mt-10 pt-6">
+            <nav aria-label="Breadcrumb">
+                <ol className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+                    <li key={uuidv4()}>
+                        <div className="flex items-center">
+                            <a href="/productos" className="mr-2 text-sm font-medium text-gray-900">
+                                Productos
+                            </a>
+                            <svg
+                                width={16}
+                                height={20}
+                                viewBox="0 0 16 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                className="h-5 w-4 text-gray-300"
+                            >
+                                <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+                            </svg>
+                        </div>
+                    </li>
+                    <li key={uuidv4()}>
+                        <div className="capitalize flex items-center">
+                            <a href={`/productos/${category}`} className="mr-2 text-sm font-medium text-gray-900">
+                                {category}
+                            </a>
+                            <svg
+                                width={16}
+                                height={20}
+                                viewBox="0 0 16 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                className="h-5 w-4 text-gray-300"
+                            >
+                                <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+                            </svg>
+                        </div>
+                    </li>
+                    <li className="text-sm">
+                        <a href={product.href} aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
+                            {product.name}
+                        </a>
+                    </li>
+                </ol>
+            </nav>
 
-        <form className="mt-10">
-            {/* Material */}
-            <div>
-            <h3 className="text-sm font-medium text-gray-900">Material</h3>
-
-            <fieldset aria-label="Choose a color" className="mt-4">
-                <RadioGroup value={selectedColor} onChange={setSelectedColor} className="flex items-center space-x-3">
-                {product.colors.map((color) => (
-                    <Radio
-                    key={color.name}
-                    value={color}
-                    className={({ focus, checked }) =>
-                        classNames(
-                        color.selectedClass,
-                        focus && checked ? 'ring ring-offset-1' : '',
-                        !focus && checked ? 'ring-2' : '',
-                        'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none'
-                        )
-                    }
-                    >
-                    <span
-                        aria-hidden="true"
-                        className={classNames(
-                        color.class,
-                        'h-8 w-8 rounded-full border border-black border-opacity-10'
-                        )}
+            {/* Image gallery */}
+            <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+                <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+                    <img
+                        src={product.images[0]?.imgUrl}
+                        alt={product.images[0]?.imgAlt}
+                        className="h-full w-full object-cover object-center"
                     />
-                    </Radio>
-                ))}
-                </RadioGroup>
-            </fieldset>
+                </div>
+                <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
+                    {product.images?.slice(1, 3).map((image, index) => (
+                        <div key={uuidv4()} className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+                            <img src={image.imgUrl} alt={image.imgAlt} className="h-full w-full object-cover object-center" />
+                        </div>
+                    ))}
+                </div>
+                <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+                    <img
+                        src={product.images[3]?.imgUrl}
+                        alt={product.images[3]?.imgAlt}
+                        className="h-full w-full object-cover object-center"
+                    />
+                </div>
             </div>
-        </form>
-        </div>
 
-        <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
-        {/* Description and details */}
-        <div className="space-y-6">
-            <p className="text-base text-gray-900">{product.description}</p>
-        </div>
+            {/* Product info */}
+            <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
+                <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+                    <h1 className="text-4xl xs:text-3xl md:text-4xl lg:text-4xl font-serif tracking-tight text-gray-900">{product.name}</h1>
+                </div>
 
-        <div className="mt-10">
-            <h2 className="text-sm font-medium text-gray-900">Detalles</h2>
+                {/* Options */}
+                <div className="mt-4 lg:row-span-3 lg:mt-0">
+                    <h2 className="sr-only">Product information</h2>
+                    <p className="text-3xl xs:text-2xl md:text-2xl lg:text-3xl tracking-tight text-gray-900">$ {product.price}</p>
 
-            <div className="mt-4 space-y-6">
-            <p className="text-sm text-gray-600">{product.details}</p>
+                    <form className="mt-10">
+                        {/* Material */}
+                        <div>
+                            <h3 className="text-sm font-medium text-gray-900">Material</h3>
+                            {Array.isArray(product.material) && (
+                                <fieldset aria-label="Choose a material" className="mt-4">
+                                    <div className="flex items-center space-x-3">
+                                        {product.material.map((material) => (
+                                            <div
+                                                key={uuidv4()}
+                                                className="relative -m-0.5 flex flex-col items-center justify-center rounded-full p-0.5"
+                                            >
+                                                <span
+                                                    aria-hidden="true"
+                                                    className="h-8 w-8 rounded-full border border-black border-opacity-10"
+                                                    style={{ backgroundColor: materialColors[material.name] }}
+                                                />
+                                                <span className="text-xs mt-2 text-gray-600">{material.name}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </fieldset>
+                            )}
+                        </div>
+                    </form>
+                </div>
+
+                <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
+                    {/* Description and details */}
+                    <div className="space-y-6">
+                        <p className="text-base text-gray-900">{product.text}</p>
+                    </div>
+
+                    <div className="mt-10">
+                        <h2 className="text-sm font-medium text-gray-900">Detalles</h2>
+
+                        <div className="mt-4 space-y-6">
+                            <p className="text-sm text-gray-600">{product.details}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        </div>
-    </div>
-    </div>
-);
+    );
 }

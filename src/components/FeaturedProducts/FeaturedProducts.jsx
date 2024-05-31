@@ -35,9 +35,7 @@ const FeaturedProducts = () => {
                             <div className="mt-4 flex justify-between">
                                 <div>
                                     <h3 className="text-sm font-medium text-neutral-900">
-                                        <Link to={`/producto/${product.category}/${product.id}`}>
-                                            {product.name} 
-                                        </Link>
+                                        {product.name} 
                                     </h3>
                                     <p className="text-xs text-neutral-400">
                                     Código: <span className="uppercase">{product.id}</span>
