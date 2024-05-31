@@ -108,29 +108,27 @@ export default function ItemContent() {
 
                 {/* Options */}
                 <div className="mt-4 lg:row-span-3 lg:mt-0">
-                    <h2 className="sr-only">Product information</h2>
+                    <h2 className="sr-only">Información del producto</h2>
                     <p className="text-3xl xs:text-2xl md:text-2xl lg:text-3xl tracking-tight text-gray-900">$ {product.price}</p>
 
                     <form className="mt-10">
                         {/* Material */}
                         <div>
                             <h3 className="text-sm font-medium text-gray-900">Material</h3>
-                            {Array.isArray(product.material) && (
+                            {product.material && ( // Verifica si hay un material definido
                                 <fieldset aria-label="Choose a material" className="mt-4">
                                     <div className="flex items-center space-x-3">
-                                        {product.material.map((material) => (
-                                            <div
-                                                key={uuidv4()}
-                                                className="relative -m-0.5 flex flex-col items-center justify-center rounded-full p-0.5"
-                                            >
-                                                <span
-                                                    aria-hidden="true"
-                                                    className="h-8 w-8 rounded-full border border-black border-opacity-10"
-                                                    style={{ backgroundColor: materialColors[material.name] }}
-                                                />
-                                                <span className="text-xs mt-2 text-gray-600">{material.name}</span>
-                                            </div>
-                                        ))}
+                                        <div
+                                            key={uuidv4()}
+                                            className="relative -m-0.5 flex flex-col items-center justify-center rounded-full p-0.5"
+                                        >
+                                            <span
+                                                aria-hidden="true"
+                                                className="h-8 w-8 rounded-full border border-black border-opacity-10"
+                                                style={{ backgroundColor: materialColors[product.material] }}
+                                            />
+                                            <span className="text-xs mt-2 text-gray-600">{product.material}</span>
+                                        </div>
                                     </div>
                                 </fieldset>
                             )}
