@@ -1,19 +1,42 @@
-import React from 'react';
-import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
+import React from "react";
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
+import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
 import { v4 as uuidv4 } from "uuid";
 
 export default function ItemFilterDesktop({ filters, selectedFilters, setSelectedFilters }) {
     const handleCheckboxChange = (sectionId, optionValue) => {
-        setSelectedFilters(prevFilters => {
-            const newFilters = { ...prevFilters };
-            if (newFilters[sectionId].includes(optionValue)) {
-                newFilters[sectionId] = newFilters[sectionId].filter(value => value !== optionValue);
-            } else {
-                newFilters[sectionId].push(optionValue);
+        // Obtenemos los filtros actuales de la URL
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const currentFilters = Object.fromEntries(urlSearchParams.entries());
+
+        // Convertimos los valores de los filtros en arrays si no lo son
+        for (const key in currentFilters) {
+            if (typeof currentFilters[key] === 'string') {
+                currentFilters[key] = currentFilters[key].split(',');
             }
-            return newFilters;
-        });
+        }
+
+        // Inicializamos como array vacío si currentFilters[sectionId] es undefined
+        if (!currentFilters[sectionId]) {
+            currentFilters[sectionId] = [];
+        }
+
+        // Actualizamos los filtros con el nuevo valor seleccionado
+        if (currentFilters[sectionId].includes(optionValue)) {
+            currentFilters[sectionId] = currentFilters[sectionId].filter(value => value !== optionValue);
+        } else {
+            currentFilters[sectionId].push(optionValue);
+        }
+
+        // Construimos la nueva URL con los filtros actualizados
+        const newSearchParams = new URLSearchParams(currentFilters);
+        const newUrl = `${window.location.pathname}?${newSearchParams.toString()}`;
+
+        // Actualizamos la URL
+        window.history.replaceState({}, '', newUrl);
+
+        // Actualizamos los filtros en el estado local
+        setSelectedFilters(currentFilters);
     };
 
     return (
@@ -43,7 +66,7 @@ export default function ItemFilterDesktop({ filters, selectedFilters, setSelecte
                                                 name={`${section.id}[]`}
                                                 value={option.value}
                                                 type="checkbox"
-                                                checked={selectedFilters[section.id].includes(option.value)}
+                                                checked={selectedFilters[section.id] && selectedFilters[section.id].includes(option.value)}
                                                 onChange={() => handleCheckboxChange(section.id, option.value)}
                                                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                             />

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ItemGrid from './ItemGrid';
 import productos from '../../data/products.json';
 import ItemFilterDesktop from './ItemFilterDesktop';
-import ItemSorting from './ItemSorting';
 import ItemFilterMobile from './ItemFilterMobile';
+import ItemSorting from './ItemSorting';
 
 const materialSet = new Set();
 productos.forEach(category => {
@@ -52,14 +52,28 @@ export default function ItemListContainer() {
     const [filteredAndSortedProducts, setFilteredAndSortedProducts] = useState([]);
 
     useEffect(() => {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const filters = Object.fromEntries(urlSearchParams.entries());
+
+        // Convert filters to arrays
+        for (const key in filters) {
+            filters[key] = filters[key].split(',');
+        }
+
+        setSelectedFilters(filters);
+    }, []);
+
+    useEffect(() => {
         const filterProducts = (products, filters) => {
             const allProducts = products.flatMap(category =>
                 category.items.map(item => ({ ...item, category: category.category }))
             );
 
             const filteredProducts = allProducts.filter(item => {
-                const categoryMatch = filters.category.length === 0 || filters.category.includes(item.category);
-                const materialMatch = filters.material.length === 0 || filters.material.includes(item.material);
+                const categoryFilters = filters.category || [];
+                const materialFilters = filters.material || [];
+                const categoryMatch = categoryFilters.length === 0 || categoryFilters.includes(item.category);
+                const materialMatch = materialFilters.length === 0 || materialFilters.includes(item.material);
                 return categoryMatch && materialMatch;
             });
 
@@ -87,19 +101,32 @@ export default function ItemListContainer() {
 
     return (
         <>
-            <ItemFilterMobile filters={filters} setMobileFiltersOpen={setMobileFiltersOpen} mobileFiltersOpen={mobileFiltersOpen} selectedFilters={selectedFilters} setSelectedFilters={setSelectedFilters} />
+            <ItemFilterMobile
+                filters={filters}
+                mobileFiltersOpen={mobileFiltersOpen}
+                setMobileFiltersOpen={setMobileFiltersOpen}
+                selectedFilters={selectedFilters}
+                setSelectedFilters={setSelectedFilters}
+            />
             <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
                     <h1 className="text-4xl font-serif text-gray-900">
                         Productos
                     </h1>
-                    <ItemSorting sortOptions={sortOptions} selectedSortOption={selectedSortOption} setSelectedSortOption={setSelectedSortOption} setMobileFiltersOpen={setMobileFiltersOpen} />
+                    <ItemSorting
+                        sortOptions={sortOptions}
+                        selectedSortOption={selectedSortOption}
+                        setSelectedSortOption={setSelectedSortOption}
+                        setMobileFiltersOpen={setMobileFiltersOpen}
+                    />
                 </div>
                 <section aria-labelledby="products-heading" className="pb-24 pt-6">
                     <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-                        {/* Filters desktop */}
-                        <ItemFilterDesktop filters={filters} selectedFilters={selectedFilters} setSelectedFilters={setSelectedFilters} />
-                        {/* Product grid */}
+                        <ItemFilterDesktop
+                            filters={filters}
+                            selectedFilters={selectedFilters}
+                            setSelectedFilters={setSelectedFilters}
+                        />
                         <div className="lg:col-span-3">
                             <ItemGrid productos={filteredAndSortedProducts} />
                         </div>

@@ -7,15 +7,38 @@ import { v4 as uuidv4 } from "uuid";
 
 export default function ItemFilterMobile({ filters, mobileFiltersOpen, setMobileFiltersOpen, selectedFilters, setSelectedFilters }) {
     const handleCheckboxChange = (sectionId, optionValue) => {
-        setSelectedFilters(prevFilters => {
-            const newFilters = { ...prevFilters };
-            if (newFilters[sectionId].includes(optionValue)) {
-                newFilters[sectionId] = newFilters[sectionId].filter(value => value !== optionValue);
-            } else {
-                newFilters[sectionId].push(optionValue);
+        // Obtenemos los filtros actuales de la URL
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const currentFilters = Object.fromEntries(urlSearchParams.entries());
+
+        // Convertimos los valores de los filtros en arrays si no lo son
+        for (const key in currentFilters) {
+            if (typeof currentFilters[key] === 'string') {
+                currentFilters[key] = currentFilters[key].split(',');
             }
-            return newFilters;
-        });
+        }
+
+        // Inicializamos como array vacío si currentFilters[sectionId] es undefined
+        if (!currentFilters[sectionId]) {
+            currentFilters[sectionId] = [];
+        }
+
+        // Actualizamos los filtros con el nuevo valor seleccionado
+        if (currentFilters[sectionId].includes(optionValue)) {
+            currentFilters[sectionId] = currentFilters[sectionId].filter(value => value !== optionValue);
+        } else {
+            currentFilters[sectionId].push(optionValue);
+        }
+
+        // Construimos la nueva URL con los filtros actualizados
+        const newSearchParams = new URLSearchParams(currentFilters);
+        const newUrl = `${window.location.pathname}?${newSearchParams.toString()}`;
+
+        // Actualizamos la URL
+        window.history.replaceState({}, '', newUrl);
+
+        // Actualizamos los filtros en el estado local
+        setSelectedFilters(currentFilters);
     };
 
     return (
@@ -49,7 +72,7 @@ export default function ItemFilterMobile({ filters, mobileFiltersOpen, setMobile
                                     className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400"
                                     onClick={() => setMobileFiltersOpen(false)}
                                 >
-                                    <span className="sr-only">Close menu</span>
+                                    <span className="sr-only">Cerrar menú</span>
                                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                                 </button>
                             </div>
@@ -81,7 +104,7 @@ export default function ItemFilterMobile({ filters, mobileFiltersOpen, setMobile
                                                                     name={`${section.id}[]`}
                                                                     value={option.value}
                                                                     type="checkbox"
-                                                                    checked={selectedFilters[section.id].includes(option.value)}
+                                                                    checked={selectedFilters[section.id] && selectedFilters[section.id].includes(option.value)}
                                                                     onChange={() => handleCheckboxChange(section.id, option.value)}
                                                                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                                                 />
