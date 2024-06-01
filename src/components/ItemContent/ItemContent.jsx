@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 export default function ItemContent() {
     const { category, id } = useParams();
     const [product, setProduct] = useState(null);
-    const [selectedMaterial, setSelectedMaterial] = useState(null);
+    const [ setSelectedMaterial] = useState(null);
 
     useEffect(() => {
         const categoryData = productos.find(cat => cat.category === category);

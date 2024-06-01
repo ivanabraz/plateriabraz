@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 
 // CONTEXT
 import { NavBarContext } from '../../context/NavBarContext';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const navigation = {
     featured: [
