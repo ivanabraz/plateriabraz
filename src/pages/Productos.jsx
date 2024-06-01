@@ -11,6 +11,7 @@ const Productos = () => {
                 video={false} 
                 header={heroImg}
                 title={`Catálogo`}
+                heightClass="h-[65vh]"
             />
             <ItemListContainer/>
         </>

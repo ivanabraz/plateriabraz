@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import productos from '../../data/products.json';
 import { v4 as uuidv4 } from "uuid";
 
@@ -52,9 +52,9 @@ export default function ItemContent() {
                     </li>
                     <li key={uuidv4()}>
                         <div className="capitalize flex items-center">
-                            <a href={`/productos/${category}`} className="mr-2 text-sm font-medium text-gray-900">
+                            <Link to={`/productos?category=${category}`} className="mr-2 text-sm font-medium text-gray-900">
                                 {category}
-                            </a>
+                            </Link>
                             <svg
                                 width={16}
                                 height={20}
@@ -68,9 +68,9 @@ export default function ItemContent() {
                         </div>
                     </li>
                     <li className="text-sm">
-                        <a href={product.href} aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
+                        <Link to={product.href} aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
                             {product.name}
-                        </a>
+                        </Link>
                     </li>
                 </ol>
             </nav>

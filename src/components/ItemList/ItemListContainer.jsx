@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import ItemGrid from './ItemGrid';
 import productos from '../../data/products.json';
 import ItemFilterDesktop from './ItemFilterDesktop';
@@ -46,13 +47,14 @@ const filters = [
 ];
 
 export default function ItemListContainer() {
+    const location = useLocation();
     const [selectedSortOption, setSelectedSortOption] = useState('Alfabético A-Z');
     const [selectedFilters, setSelectedFilters] = useState({ category: [], material: [] });
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
     const [filteredAndSortedProducts, setFilteredAndSortedProducts] = useState([]);
 
     useEffect(() => {
-        const urlSearchParams = new URLSearchParams(window.location.search);
+        const urlSearchParams = new URLSearchParams(location.search);
         const filters = Object.fromEntries(urlSearchParams.entries());
 
         // Convert filters to arrays
@@ -61,7 +63,7 @@ export default function ItemListContainer() {
         }
 
         setSelectedFilters(filters);
-    }, []);
+    }, [location.search]);
 
     useEffect(() => {
         const filterProducts = (products, filters) => {
