@@ -138,10 +138,8 @@ export default function ItemContent() {
                     <div className="space-y-6">
                         <p className="text-base text-gray-900">{product.text}</p>
                     </div>
-
                     <div className="mt-10">
                         <h2 className="text-sm font-medium text-gray-900">Detalles</h2>
-
                         <div className="mt-4 space-y-6">
                             <p className="text-sm text-gray-600">{product.details}</p>
                         </div>

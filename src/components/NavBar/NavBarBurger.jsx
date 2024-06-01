@@ -14,7 +14,7 @@ const NavBarBurger = () => {
             onClick={() => setOpen(true)}
         >
             <Bars3Icon className="h-8 w-8" aria-hidden="true" />
-            <span className="flex xs:hidden sm:flex uppercase text-sm">Menú</span>
+            <span className="flex hidden xs:hidden sm:flex md:flex lg:flex xl:flex 2xl:flex uppercase text-sm">Menú</span>
         </button>
     );
 }

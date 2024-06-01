@@ -15,7 +15,7 @@ const HeroTwoCol = (props) => {
                     subtitle={`Hierro e inoxidable`}
                     button1={'Explorar ahora'}
                     button1link={`/productos?category=frenos`}
-                    titleClass={`text-[7rem] xs:text-[5rem] lg:text-[7rem] xl:text-[7rem]`}
+                    titleClass={`text-6xl xs:text-6xl md:text-8xl lg:text-[8rem] xl:text-[9rem]`}
                 />
             </div>
             <div className="w-full md:w-1/2 h-full">
@@ -26,7 +26,7 @@ const HeroTwoCol = (props) => {
                     subtitle={`Hierro e inoxidable`}
                     button1={'Explorar ahora'}
                     button1link={`/productos?category=espuelas`}
-                    titleClass={`text-[7rem] xs:text-[5rem] lg:text-[7rem] xl:text-[7rem]`}
+                    titleClass={`text-6xl xs:text-6xl md:text-8xl lg:text-[8rem] xl:text-[9rem]`}
                 />
             </div>
         </div>

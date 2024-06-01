@@ -14,7 +14,7 @@ const Hero = (props) => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
-                className={`${titleClass !== undefined ? titleClass : "text-[9rem] xs:text-6xl md:text-8xl lg:text-[8rem] xl:text-[9rem]"} px-20 xs:px-0 sm:px-20 md:px-20 uppercase font-serif leading-none`}
+                className={`${titleClass !== undefined ? titleClass : "text-6xl xs:text-6xl md:text-8xl lg:text-[8rem] xl:text-[9rem]"} px-20 xs:px-0 sm:px-20 md:px-20 uppercase font-serif leading-none`}
             >
                 {title}
             </motion.p>
@@ -26,7 +26,7 @@ const Hero = (props) => {
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className="text-lg py-5 font-body"
+                    className="text-md xs:text-sm sm:text-sm md:text-lg lg:text-lg py-5 font-body"
                 >
                     {subtitle}
                 </motion.p>
