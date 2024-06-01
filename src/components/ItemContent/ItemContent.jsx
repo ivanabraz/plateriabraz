@@ -3,11 +3,9 @@ import { Link, useParams } from 'react-router-dom';
 import productos from '../../data/products.json';
 import { v4 as uuidv4 } from "uuid";
 
-
 export default function ItemContent() {
     const { category, id } = useParams();
     const [product, setProduct] = useState(null);
-    const [ setSelectedMaterial] = useState(null);
 
     useEffect(() => {
         const categoryData = productos.find(cat => cat.category === category);
@@ -15,7 +13,6 @@ export default function ItemContent() {
             const productData = categoryData.items.find(item => item.id === id);
             if (productData) {
                 setProduct(productData);
-                setSelectedMaterial(Array.isArray(productData.material) ? productData.material[0] : null);
             }
         }
     }, [category, id]);
