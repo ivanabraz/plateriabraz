@@ -15,7 +15,7 @@ const FeaturedProducts = () => {
     }, 0);
 
     return (
-        <div className="w-full h-full pt-24">
+        <div id="featuredproducts" className="w-full h-full pt-24">
             <p className="text-4xl font-serif text-neutral-900 text-center">
                 Productos destacados
             </p>

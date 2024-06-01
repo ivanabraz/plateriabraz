@@ -14,7 +14,7 @@ const HeroTwoCol = (props) => {
                     title={`Frenos`}
                     subtitle={`Hierro e inoxidable`}
                     button1={'Explorar ahora'}
-                    button1link={'/frenos'}
+                    button1link={`/productos?category=frenos`}
                     titleClass={`text-[7rem] xs:text-[5rem] lg:text-[7rem] xl:text-[7rem]`}
                 />
             </div>
@@ -25,7 +25,7 @@ const HeroTwoCol = (props) => {
                     title={`Espuelas`}
                     subtitle={`Hierro e inoxidable`}
                     button1={'Explorar ahora'}
-                    button1link={'/espuelas'}
+                    button1link={`/productos?category=espuelas`}
                     titleClass={`text-[7rem] xs:text-[5rem] lg:text-[7rem] xl:text-[7rem]`}
                 />
             </div>
