@@ -7,7 +7,7 @@ const Hero = (props) => {
     const { title, subtitle, button1, button1link, button2, button2link, video, header, headerVideo, titleClass, heightClass = "h-screen" } = props;
 
     return (
-        <div className={`relative flex flex-col justify-center items-center w-full ${heightClass} bg-no-repeat bg-cover bg-center text-white text-center`}>
+        <div className={`overflow-x-hidden relative flex flex-col justify-center items-center w-full ${heightClass} bg-no-repeat bg-cover bg-center text-white text-center`}>
             {/* Título */}
             <motion.p 
                 key={uuidv4()}
