@@ -30,7 +30,6 @@ export default function ItemListContainer() {
                 const data = await res.json();
                 setProductsData(data);
 
-                // Extract filter options
                 const materialSet = new Set();
                 data.forEach(category => {
                     category.items.forEach(item => {
@@ -46,7 +45,7 @@ export default function ItemListContainer() {
                 }));
 
                 const categoryOptions = data.map(producto => ({
-                    value: producto.category,
+                    value: producto.category.toLowerCase(),
                     label: producto.category.charAt(0).toUpperCase() + producto.category.slice(1),
                     checked: false
                 }));
@@ -77,9 +76,8 @@ export default function ItemListContainer() {
         const urlSearchParams = new URLSearchParams(location.search);
         const filters = Object.fromEntries(urlSearchParams.entries());
 
-        // Convert filters to arrays
         for (const key in filters) {
-            filters[key] = filters[key].split(',');
+            filters[key] = filters[key].split(',').map(value => value.toLowerCase()).filter(value => value);
         }
 
         setSelectedFilters(filters);
@@ -90,14 +88,14 @@ export default function ItemListContainer() {
 
         const filterProducts = (products, filters) => {
             const allProducts = products.flatMap(category =>
-                category.items.map(item => ({ ...item, category: category.category }))
+                category.items.map(item => ({ ...item, category: category.category.toLowerCase() }))
             );
 
             const filteredProducts = allProducts.filter(item => {
                 const categoryFilters = filters.category || [];
                 const materialFilters = filters.material || [];
-                const categoryMatch = categoryFilters.length === 0 || categoryFilters.includes(item.category);
-                const materialMatch = materialFilters.length === 0 || materialFilters.includes(item.material);
+                const categoryMatch = categoryFilters.length === 0 || categoryFilters.includes(item.category.toLowerCase());
+                const materialMatch = materialFilters.length === 0 || materialFilters.includes(item.material.toLowerCase());
                 return categoryMatch && materialMatch;
             });
 
