@@ -1,30 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import ItemGrid from './ItemGrid';
-import productos from '../../data/products.json';
 import ItemFilterDesktop from './ItemFilterDesktop';
 import ItemFilterMobile from './ItemFilterMobile';
 import ItemSorting from './ItemSorting';
-
-const materialSet = new Set();
-productos.forEach(category => {
-    category.items.forEach(item => {
-        if (item.material) {
-            materialSet.add(item.material);
-        }
-    });
-});
-const materialOptions = Array.from(materialSet).map(material => ({
-    value: material,
-    label: material,
-    checked: false
-}));
-
-const categoryOptions = productos.map(producto => ({
-    value: producto.category,
-    label: producto.category.charAt(0).toUpperCase() + producto.category.slice(1),
-    checked: false
-}));
 
 const sortOptions = [
     { name: 'Alfabético A-Z', current: true },
@@ -33,25 +12,66 @@ const sortOptions = [
     { name: 'Precio: Alto a bajo', current: false },
 ];
 
-const filters = [
-    {
-        id: 'category',
-        name: 'Categoría',
-        options: categoryOptions
-    },
-    {
-        id: 'material',
-        name: 'Material',
-        options: materialOptions
-    }
-];
-
 export default function ItemListContainer() {
     const location = useLocation();
+    const [productsData, setProductsData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [selectedSortOption, setSelectedSortOption] = useState('Alfabético A-Z');
     const [selectedFilters, setSelectedFilters] = useState({ category: [], material: [] });
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
     const [filteredAndSortedProducts, setFilteredAndSortedProducts] = useState([]);
+    const [filters, setFilters] = useState([]);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const res = await fetch('https://script.google.com/macros/s/AKfycbyl7cUZH1aavFqzKkQWvKBx08siH0Bmx8kbVNYJkquLDHHyH8pt3e_aNGl7i3_aNWAl/exec');
+                const data = await res.json();
+                setProductsData(data);
+
+                // Extract filter options
+                const materialSet = new Set();
+                data.forEach(category => {
+                    category.items.forEach(item => {
+                        if (item.material) {
+                            materialSet.add(item.material);
+                        }
+                    });
+                });
+                const materialOptions = Array.from(materialSet).map(material => ({
+                    value: material,
+                    label: material,
+                    checked: false
+                }));
+
+                const categoryOptions = data.map(producto => ({
+                    value: producto.category,
+                    label: producto.category.charAt(0).toUpperCase() + producto.category.slice(1),
+                    checked: false
+                }));
+
+                setFilters([
+                    {
+                        id: 'category',
+                        name: 'Categoría',
+                        options: categoryOptions
+                    },
+                    {
+                        id: 'material',
+                        name: 'Material',
+                        options: materialOptions
+                    }
+                ]);
+            } catch (err) {
+                setError(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProducts();
+    }, []);
 
     useEffect(() => {
         const urlSearchParams = new URLSearchParams(location.search);
@@ -66,6 +86,8 @@ export default function ItemListContainer() {
     }, [location.search]);
 
     useEffect(() => {
+        if (productsData.length === 0) return;
+
         const filterProducts = (products, filters) => {
             const allProducts = products.flatMap(category =>
                 category.items.map(item => ({ ...item, category: category.category }))
@@ -97,9 +119,17 @@ export default function ItemListContainer() {
             }
         };
 
-        const filteredProducts = filterProducts(productos, selectedFilters);
+        const filteredProducts = filterProducts(productsData, selectedFilters);
         setFilteredAndSortedProducts(sortProducts(filteredProducts, selectedSortOption));
-    }, [selectedSortOption, selectedFilters]);
+    }, [selectedSortOption, selectedFilters, productsData]);
+
+    if (loading) {
+        return <div className="w-full h-full text-center p-20">Cargando productos...</div>;
+    }
+
+    if (error) {
+        return <div className="w-full h-full text-center p-20">Error al cargar los productos</div>;
+    }
 
     return (
         <>
