@@ -17,13 +17,13 @@ export default function ItemFilterDesktop({ filters, selectedFilters, setSelecte
         }
 
         // Inicializamos como array vacío si currentFilters[sectionId] es undefined
-        if (!currentFilters[sectionId]) {
-            currentFilters[sectionId] = [];
+        if (!currentFilters[sectionId.toLowerCase()]) {
+            currentFilters[sectionId.toLowerCase()] = [];
         }
 
         // Actualizamos los filtros con el nuevo valor seleccionado
-        if (currentFilters[sectionId].includes(optionValue)) {
-            currentFilters[sectionId] = currentFilters[sectionId].filter(value => value !== optionValue);
+        if (currentFilters[sectionId.toLowerCase()].includes(optionValue)) {
+            currentFilters[sectionId.toLowerCase()] = currentFilters[sectionId].filter(value => value !== optionValue);
         } else {
             currentFilters[sectionId].push(optionValue);
         }

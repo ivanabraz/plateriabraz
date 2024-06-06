@@ -1,21 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import productos from '../../data/products.json';
 import { v4 as uuidv4 } from "uuid";
 
 export default function ItemContent() {
     const { category, id } = useParams();
     const [product, setProduct] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        const categoryData = productos.find(cat => cat.category === category);
-        if (categoryData) {
-            const productData = categoryData.items.find(item => item.id === id);
-            if (productData) {
-                setProduct(productData);
+        const fetchProducts = async () => {
+            try {
+                const res = await fetch('https://script.google.com/macros/s/AKfycbyl7cUZH1aavFqzKkQWvKBx08siH0Bmx8kbVNYJkquLDHHyH8pt3e_aNGl7i3_aNWAl/exec');
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                const data = await res.json();
+                const categoryData = data.find(cat => cat.category.toLowerCase() === category.toLowerCase());
+                if (categoryData) {
+                    const productData = categoryData.items.find(item => item.id === id);
+                    if (productData) {
+                        setProduct(productData);
+                    }
+                }
+            } catch (err) {
+                setError(err);
+            } finally {
+                setLoading(false);
             }
-        }
+        };
+
+        fetchProducts();
     }, [category, id]);
+
+    if (loading) {
+        return <div className="w-full h-full text-center p-20">Cargando productos...</div>;
+    }
+
+    if (error) {
+        return <div className="w-full h-full text-center p-20">Error al cargar los productos</div>;
+    }
 
     if (!product) {
         return <div>Producto no encontrado</div>;
@@ -49,7 +73,7 @@ export default function ItemContent() {
                     </li>
                     <li key={uuidv4()}>
                         <div className="capitalize flex items-center">
-                            <Link to={`/productos?category=${category}`} className="mr-2 text-sm font-medium text-gray-900">
+                            <Link to={`/productos?category=${category.toLowerCase()}`} className="mr-2 text-sm font-medium text-gray-900">
                                 {category}
                             </Link>
                             <svg
@@ -65,7 +89,7 @@ export default function ItemContent() {
                         </div>
                     </li>
                     <li className="text-sm">
-                        <Link to={product.href} aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
+                        <Link to={product.id} aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
                             {product.name}
                         </Link>
                     </li>
@@ -73,29 +97,51 @@ export default function ItemContent() {
             </nav>
 
             {/* Image gallery */}
-            <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-                <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+            <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-1 lg:gap-x-8 lg:px-8">
+                <div className="bg-gray-200 aspect-h-2 aspect-w-2  overflow-hidden rounded-lg">
                     <img
-                        src={product.images[0]?.imgUrl}
-                        alt={product.images[0]?.imgAlt}
-                        className="h-full w-full object-cover object-center"
-                    />
-                </div>
-                <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-                    {product.images?.slice(1, 3).map((image, index) => (
-                        <div key={uuidv4()} className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                            <img src={image.imgUrl} alt={image.imgAlt} className="h-full w-full object-cover object-center" />
-                        </div>
-                    ))}
-                </div>
-                <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-                    <img
-                        src={product.images[3]?.imgUrl}
-                        alt={product.images[3]?.imgAlt}
+                        src={`${process.env.PUBLIC_URL}/images/products/${product.category.toLowerCase()}/${product.id}.png`}
+                        alt={product.name}
                         className="h-full w-full object-cover object-center"
                     />
                 </div>
             </div>
+
+            {/* Image gallery */}
+            {/* <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+                <div className="bg-gray-200 aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+                    <img
+                        src={`${process.env.PUBLIC_URL}/images/products/${product.category.toLowerCase()}/${product.id}.png`}
+                        alt={product.name}
+                        className="h-full w-full object-cover object-center"
+                    />
+                </div>
+                <div className="bg-gray-200 hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
+                    {product.images?.slice(1, 3).map((image, index) => (
+                        <div key={uuidv4()} className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+                            <img 
+                                src={`${process.env.PUBLIC_URL}/images/products/${product.category.toLowerCase()}/${product.id}.png`} 
+                                alt={image.name}
+                                className="h-full w-full object-cover object-center" />
+                        </div>
+                    ))}
+                </div>
+                <div className="bg-gray-200 aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+                    {product.images && product.images[3] ? (
+                        <img
+                            src={product.images[3].imgUrl}
+                            alt={product.images[3].imgAlt}
+                            className="h-full w-full object-cover object-center"
+                        />
+                    ) : (
+                        <img
+                            src={`${process.env.PUBLIC_URL}/images/products/${product.category.toLowerCase()}/${product.id}.png`}
+                            alt={product.name}
+                            className="h-full w-full object-cover object-center"
+                        />
+                    )}
+                </div>
+            </div> */}
 
             {/* Product info */}
             <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
