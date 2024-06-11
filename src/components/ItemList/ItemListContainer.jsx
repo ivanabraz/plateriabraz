@@ -6,10 +6,11 @@ import ItemFilterMobile from './ItemFilterMobile';
 import ItemSorting from './ItemSorting';
 
 const sortOptions = [
-    { name: 'Alfabético A-Z', current: true },
+    { name: 'Por código', current: true },
+    { name: 'Alfabético A-Z', current: false },
     { name: 'Alfabético Z-A', current: false },
     { name: 'Precio: Bajo a alto', current: false },
-    { name: 'Precio: Alto a bajo', current: false },
+    { name: 'Precio: Alto a bajo', current: false }
 ];
 
 export default function ItemListContainer() {
@@ -17,7 +18,7 @@ export default function ItemListContainer() {
     const [productsData, setProductsData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [selectedSortOption, setSelectedSortOption] = useState('Alfabético A-Z');
+    const [selectedSortOption, setSelectedSortOption] = useState('Por código'); // Opción predeterminada
     const [selectedFilters, setSelectedFilters] = useState({ category: [], material: [] });
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
     const [filteredAndSortedProducts, setFilteredAndSortedProducts] = useState([]);
@@ -112,6 +113,8 @@ export default function ItemListContainer() {
                     return [...products].sort((a, b) => a.price - b.price);
                 case 'Precio: Alto a bajo':
                     return [...products].sort((a, b) => b.price - a.price);
+                case 'Por código':
+                    return [...products].sort((a, b) => a.id - b.id); // Ordenar por ID de producto ascendente
                 default:
                     return products;
             }
