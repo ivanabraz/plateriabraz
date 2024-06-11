@@ -8,6 +8,7 @@ import ItemContent from './components/ItemContent/ItemContent';
 
 import Home from './pages/Home';
 import Productos from './pages/Productos';
+import WhatsappButton from './components/WhatsappButton/WhatsappButton';
 
 const HomePage = () => {
     const { setIsOverlay } = useNavBar();
@@ -62,6 +63,7 @@ function App() {
                         <Route path="/productos/:category" exact element={<ProductosPage />} />
                         <Route path="/productos/:category/:id" exact element={<ItemContentPage />} />
                     </Routes>
+                    <WhatsappButton/>
                 </>
             )}
         </NavBarProvider>

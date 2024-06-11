@@ -42,12 +42,16 @@ const navigation = {
             name: 'Frenos',
         },
         {
+            id: 'yuntas',
+            name: 'Yuntas',
+        },
+        {
             id: 'otros',
             name: 'Otros',
         }
     ],
     pages: [
-        { name: 'Contacto', href: '/contacto' },
+        { name: 'Contacto', href: 'https://api.whatsapp.com/send?phone=1124093882' },
     ],
     social: [
         {
@@ -149,9 +153,9 @@ const NavBarOpen = () => {
                                 {/* Otras páginas */}
                                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                                     {navigation.pages.map((page) => (
-                                        <div key={uuidv4()} className="-m-2 p-2 font-medium text-gray-900 cursor-pointer" onClick={() => handleLinkClick(page.href)}>
+                                        <a key={uuidv4()} className="-m-2 p-2 font-medium text-gray-900 cursor-pointer" href={page.href} target="_blank" rel="noreferrer">
                                             {page.name}
-                                        </div>
+                                        </a>
                                     ))}
                                 </div>
 
