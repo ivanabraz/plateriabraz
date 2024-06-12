@@ -51,7 +51,7 @@ const navigation = {
         }
     ],
     pages: [
-        { name: 'Contacto', href: 'https://api.whatsapp.com/send?phone=1124093882' },
+        { name: 'Contacto', href: 'https://api.whatsapp.com/send?phone=5491124093882' },
     ],
     social: [
         {
