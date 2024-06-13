@@ -56,12 +56,12 @@ const navigation = {
     social: [
         {
             name: 'Instagram', 
-            href: 'https://www.instagram.com/plateriabraz',
+            href: 'https://www.instagram.com/plateriadecampana',
             icon: faInstagram,
         },
         {
             name: 'Facebook', 
-            href: 'https://www.facebook.com/plateriabraz',
+            href: 'https://www.facebook.com/plateriadecampana',
             icon: faFacebookSquare,
         },
     ],
